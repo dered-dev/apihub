@@ -10,12 +10,12 @@ app.use( bodyParser.json() )
 
 app.get(
     '/',
-    (req, res) => {
-        res.send('pagina Principal')
+    (request, response) => {
+        response.send('pagina Principal')
     }
 )
 
-app.post('/', function (req, req) {
+app.post('/', function (req, res) {
     var email = req.body.email
 
     const myHeaders = new Headers()
