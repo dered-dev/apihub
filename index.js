@@ -2,10 +2,15 @@ var express = require('express');
 var bodyParser = require('body-parser');
 const cors = require('cors');
 const axios = require('axios');
+require('dotenv').config()
 
 
 var app = express();
-app.use(cors());
+const corsOptions = {
+    origin: 'https://buoyant.io', 
+    optionsSuccessStatus: 200
+};
+app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -49,8 +54,6 @@ app.post('/', function (req, res) {
 app.post('/certifier', function (req, res) {
     const { name, email, issueDate, expiryDate, groupId } = req.body;
 
-    certifier.auth(process.env.CERTTOKEN);
-
     axios
     .request({
         method: 'POST',
@@ -59,7 +62,7 @@ app.post('/certifier', function (req, res) {
           accept: 'application/json',
           'Certifier-Version': '2022-10-26',
           'content-type': 'application/json',
-          authorization: 'Bearer cfp_DyFnAJwdsJB2NqxVNwHIFWunY5h5thQsRQlx'
+          authorization: 'Bearer '+ process.env.CERTTOKEN
         },
         data: {
             recipient: {
