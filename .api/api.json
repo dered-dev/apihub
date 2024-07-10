@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "apis": [
+    {
+      "identifier": "certifier",
+      "source": "@certifier/v1.0#dqc5tlvm9zhgb",
+      "integrity": "sha512-wz5DMM+IMyYIdviU5eRkmY0Gzw7CkZud1Kc8RndA4vwRo8FwJMhUQ+bQ3A9eK9Myi3MsCH9CmcN0pFV2QKV0Mg==",
+      "installerVersion": "6.1.2"
+    }
+  ]
+}

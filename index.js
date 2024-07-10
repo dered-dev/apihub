@@ -1,7 +1,8 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 const cors = require('cors');
-const certifier = require('@api/certifier');
+const axios = require('axios');
+
 
 var app = express();
 app.use(cors());
@@ -50,23 +51,33 @@ app.post('/certifier', function (req, res) {
 
     certifier.auth(process.env.CERTTOKEN);
 
-    certifier.createIssueSendACredential({
-        recipient: {
-            name: name,
-            email: email
+    axios
+    .request({
+        method: 'POST',
+        url: 'https://api.certifier.io/v1/credentials/create-issue-send',
+        headers: {
+          accept: 'application/json',
+          'Certifier-Version': '2022-10-26',
+          'content-type': 'application/json',
+          authorization: 'Bearer cfp_DyFnAJwdsJB2NqxVNwHIFWunY5h5thQsRQlx'
         },
-        issueDate: issueDate,
-        expiryDate: expiryDate,
-        groupId: groupId
-    }, { 'Certifier-Version': '2022-10-26' })
+        data: {
+            recipient: {
+                name: name,
+                email: email
+            },
+            issueDate: issueDate,
+            expiryDate: expiryDate,
+            groupId: groupId
+        }
+    })
     .then(({ data }) => res.json(data))
     .catch(err => {
-        console.error(err);
-        res.status(500).send('Error processing request');
-    });
-});
-// certifier
+        console.error(err)
+        res.status(500).send('Error processing request')
+    })
 
+})
 
 app.listen(
     3000,
