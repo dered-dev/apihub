@@ -53,7 +53,6 @@ app.post("/", function (req, res) {
 // certifier
 app.post("/certifier", function (req, res) {
   const { name, email, issueDate, expiryDate, groupId } = req.body
-  console.log(req.body)
   axios
     .request({
       method: "POST",
@@ -76,7 +75,6 @@ app.post("/certifier", function (req, res) {
     })
     .then(({ data }) => res.json(data))
     .catch((err) => {
-      console.error(err)
       res.status(500).send("Error processing request")
     })
 
