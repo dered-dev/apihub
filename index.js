@@ -51,8 +51,9 @@ app.post("/", function (req, res) {
 })
 
 // certifier
-app.post("/certifier", function (req, res) {
+app.post("/certifier", async function (req, res) {
   const { name, email, issueDate, expiryDate, groupId } = req.body
+
   axios
     .request({
       method: "POST",
@@ -75,33 +76,9 @@ app.post("/certifier", function (req, res) {
     })
     .then(({ data }) => res.json(data))
     .catch((err) => {
-      res.status(500).send("Error processing request")
+      res.status(500).send(err)
     })
 
-//   const urlCertifier = "https://api.certifier.io/v1/credentials/create-issue-send"
-//   const optionsCertifier = {
-//     method: "POST",
-//     headers: {
-//       accept: "application/json",
-//       "Certifier-Version": "2022-10-26",
-//       "content-type": "application/json",
-//       "authorization": "Bearer " + process.env.CERTTOKEN
-//     },
-//     body: JSON.stringify({
-//       recipient: {
-//         name: name,
-//         email: email
-//       },
-//       issueDate: issueDate,
-//       expiryDate: expiryDate,
-//       groupId: groupId
-//     })
-//   }
-
-//   fetch(urlCertifier, optionsCertifier)
-//     .then((res) => res.json())
-//     .then((json) => json)
-//     .catch((err) => console.error(err))
 })
 
 app.listen(3000, () => {
